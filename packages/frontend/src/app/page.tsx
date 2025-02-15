@@ -1,15 +1,21 @@
 'use client'
 import { client } from "@/graphql/client";
-import { ApolloProvider } from "@apollo/client";
+
 import { useState } from "react";
 import { loginValidationSchema } from "./validations/login.validation";
 import { ZodIssue } from "zod";
+import { toast, ToastContainer } from "react-toastify";
+import { LOGIN } from "@/graphql/mutations/login";
+import { ApolloProvider } from "@apollo/client/react";
+import { useRouter } from 'next/navigation'
 
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<ZodIssue[]>([]);
+
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,6 +24,25 @@ export default function Login() {
     if (!data.success) {
       setErrors(data.error.issues);
     }
+
+
+    try {
+      const response = await client.mutate({
+        mutation: LOGIN,
+        variables: {
+          email,
+          password,
+        },
+      });
+
+      if (response.data) {
+        router.push('/home')
+      }
+
+    } catch (error: any) {
+      toast.error(error.message)
+    }
+
 
 
   }
@@ -49,6 +74,7 @@ export default function Login() {
             </form>
           </div>
         </div>
+        <ToastContainer theme="colored" />
       </main>
     </ApolloProvider>
   );

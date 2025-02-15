@@ -17,13 +17,13 @@ export default async (
   const user = await User.findOne({ email })
 
   if (!user) {
-    throw new Error('User or password invalid')
+    throw new Error('Usuário e/ou senha inválidos')
   }
 
   const isAValidPassword = await bcrypt.compare(password, user.password)
 
   if (!isAValidPassword) {
-    throw new Error('User or password invalid')
+    throw new Error('Usuário e/ou senha inválidos')
   }
 
   return {
