@@ -40,3 +40,27 @@ Criar um projeto frontend dentro da pasta packages/frontend:
 - O projeto deve se conectar com o backend e realizar as consultas via graphql;
 - Deve conter uma pagina de login, com campo de e-mail e senha;
 - Ao passar os dados corretamente o usuário deve ser direciona a uma pagina de boas-vindas;
+
+## Como executar e testar o projeto
+
+Para executar o projeto é necessário ter o Node.js instalado na máquina, preferencialmente a versão 18.
+No seu terminal
+
+1. Clone o repositório:
+```bash
+git clone git@github.com:raulneto90/bondy-desafio-fullstack.git
+```
+
+2. Entre na pasta do projeto:
+```bash
+cd bondy-desafio-fullstack
+```
+
+3. Instale as dependências:
+```bash
+yarn
+```
+4. Inicie o servidor:
+```bash
+npx lerna run start
+```
